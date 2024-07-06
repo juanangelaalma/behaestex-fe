@@ -8,7 +8,7 @@ const WorkItem = ({ period, position, description, handleEdit, handleDelete }) =
             </div>
             <div className="lg:w-9/12">
                 <h6 className="font-semibold">{position}</h6>
-                <p className="text-gray-500">{description}</p>
+                { description && <p className="text-gray-500">{description}</p> }
             </div>
             <div className="absolute top-0 right-0 space-x-1">
                 <button onClick={handleDelete}>
