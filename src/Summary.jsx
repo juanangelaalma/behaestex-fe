@@ -2,9 +2,8 @@ import React, { useState } from "react";
 import SectionContainer from "./components/SectionContainer";
 import SectionHeader from "./components/SectionHeader";
 import SectionBody from "./components/SectionBody";
-import PrimaryButtonOutline from "./components/PrimaryButtonOutline";
-import PrimaryButton from "./components/PrimaryButton";
 import TextAreaInput from "./components/TextAreaInput";
+import FormAction from "./components/FormAction";
 
 const Summary = () => {
     const [edit, setEdit] = useState(false);
@@ -18,7 +17,10 @@ const Summary = () => {
             />
             <SectionBody>
                 {edit ? (
-                    <TextAreaInput placeholder='Insert text here' />
+                    <>
+                        <TextAreaInput placeholder="Insert text here" />
+                        <FormAction handleCancel={() => setEdit(false)} />
+                    </>
                 ) : (
                     <p>
                         I am a highly skilled web developer with over 2 years of
@@ -31,14 +33,6 @@ const Summary = () => {
                     </p>
                 )}
             </SectionBody>
-            {edit && (
-                <div className="flex justify-end space-x-4 py-4">
-                    <PrimaryButtonOutline onClick={() => setEdit(false)}>
-                        Cancel
-                    </PrimaryButtonOutline>
-                    <PrimaryButton>Save</PrimaryButton>
-                </div>
-            )}
         </SectionContainer>
     );
 };

@@ -3,12 +3,8 @@ import SectionContainer from "./components/SectionContainer";
 import SectionHeader from "./components/SectionHeader";
 import SectionBody from "./components/SectionBody";
 import WorkItem from "./components/WorkItem";
-import PrimaryButtonOutline from "./components/PrimaryButtonOutline";
-import PrimaryButton from "./components/PrimaryButton";
-import FormInput from "./components/FormInput";
-import TextAreaInput from "./components/TextAreaInput";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
-import SelectPeriod from "./components/SelectPeriod";
+import WorkExperienceForm from "./components/WorkExperienceForm";
 
 const WorkExperience = () => {
     const [openForm, setOpenForm] = useState(false);
@@ -20,7 +16,7 @@ const WorkExperience = () => {
         setOpenForm(true);
     };
 
-    const handleDeleteExperience = () => {
+    const handleDelete = () => {
         // set selected
         setDeleteModalOpen(true);
     };
@@ -30,7 +26,7 @@ const WorkExperience = () => {
             <DeleteConfirmModal
                 isOpen={deleteModalOpen}
                 closeModal={() => setDeleteModalOpen(false)}
-                handleConfirm={handleDeleteExperience}
+                handleConfirm={handleDelete}
             />
             <SectionHeader
                 onAction={openForm}
@@ -40,33 +36,9 @@ const WorkExperience = () => {
             />
             <SectionBody className="space-y-6">
                 {openForm ? (
-                    <div className="w-full space-y-4">
-                        <FormInput
-                            className="mt-4 w-full"
-                            type="text"
-                            name="job_title"
-                            placeholder="enter your job title"
-                            label="Job Title"
-                            autoFocus={true}
-                            // value={chairmanName}
-                            // onChange={setChairmanName}
-                        />
-                        <FormInput
-                            className="mt-4 w-full"
-                            type="text"
-                            name="company"
-                            placeholder="enter your company name"
-                            label="Company"
-                            // value={chairmanName}
-                            // onChange={setChairmanName}
-                        />
-                        <SelectPeriod label="From" />
-                        <SelectPeriod label="To" />
-                        <TextAreaInput
-                            label="Accomplishments or descriptions (optional)"
-                            placeholder="Insert text here"
-                        />
-                    </div>
+                    <WorkExperienceForm
+                        handleCancel={() => setOpenForm(false)}
+                    />
                 ) : (
                     <>
                         <WorkItem
@@ -74,19 +46,11 @@ const WorkExperience = () => {
                             position="Web Developer(Internship) at PT Vidio Dot Com"
                             description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium repudiandae porro provident ea officiis incidunt delectus? Eos, quia nostrum magnam nulla suscipit reprehenderit commodi sed quidem hic aspernatur voluptatum quasi!"
                             handleEdit={handleEdit}
-                            handleDelete={handleDeleteExperience}
+                            handleDelete={handleDelete}
                         />
                     </>
                 )}
             </SectionBody>
-            {openForm && (
-                <div className="flex justify-end space-x-4 py-4">
-                    <PrimaryButtonOutline onClick={() => setOpenForm(false)}>
-                        Cancel
-                    </PrimaryButtonOutline>
-                    <PrimaryButton>Save</PrimaryButton>
-                </div>
-            )}
         </SectionContainer>
     );
 };

@@ -2,7 +2,7 @@ import React from "react";
 
 const TextAreaInput = ({ placeholder, label }) => {
     return (
-        <div>
+        <div className="w-full">
             <label className="ml-3 text-sm font-bold text-gray-500 tracking-wide">
                 {label}
             </label>

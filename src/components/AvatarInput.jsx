@@ -1,7 +1,6 @@
 import React from "react";
 
 const AvatarInput = ({showName}) => {
-  console.log(showName)
     return (
         <div className="w-full lg:w-1/5 flex lg:justify-start lg:max-w-[130px]">
             <div className="w-1/4 lg:w-full text-center mx-auto lg:mx-0 relative h-[100px]">
