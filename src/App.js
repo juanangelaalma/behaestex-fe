@@ -3,6 +3,7 @@ import BasicInformation from './BasicInformation'
 import Summary from './Summary'
 import WorkExperience from './WorkExperience'
 import Education from './Education'
+import Skills from './Skills'
 
 const App = () => {
   return (
@@ -11,6 +12,7 @@ const App = () => {
       <Summary />
       <WorkExperience />
       <Education />
+      <Skills />
     </div>
   )
 }
