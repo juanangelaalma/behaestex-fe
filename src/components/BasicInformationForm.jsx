@@ -1,10 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import SectionBody from "./SectionBody";
 import FormInput from "./FormInput";
 import AvatarInput from "./AvatarInput";
 import FormAction from "./FormAction";
 
 const BasicInformationForm = ({ handleCancel }) => {
+    const [name, setName] = useState("");
+    const [address, setAddress] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+
     return (
         <>
             <SectionBody>
@@ -17,6 +22,8 @@ const BasicInformationForm = ({ handleCancel }) => {
                         placeholder="enter your full name"
                         label="Full Name"
                         autoFocus={true}
+                        value={name}
+                        onChange={(value) => setName(value)}
                         // value={chairmanName}
                         // onChange={setChairmanName}
                     />
@@ -26,6 +33,8 @@ const BasicInformationForm = ({ handleCancel }) => {
                         name="address"
                         placeholder="enter your address"
                         label="Address"
+                        value={address}
+                        onChange={(value) => setAddress(value)}
                         // value={chairmanName}
                         // onChange={setChairmanName}
                     />
@@ -35,6 +44,8 @@ const BasicInformationForm = ({ handleCancel }) => {
                         name="email"
                         placeholder="enter your email"
                         label="Email"
+                        value={email}
+                        onChange={(value) => setEmail(value)}
                         // value={chairmanName}
                         // onChange={setChairmanName}
                     />
@@ -44,6 +55,8 @@ const BasicInformationForm = ({ handleCancel }) => {
                         name="phone"
                         placeholder="enter your mobile number"
                         label="Mobile Number"
+                        value={phone}
+                        onChange={(value) => setPhone(value)}
                         // value={chairmanName}
                         // onChange={setChairmanName}
                     />

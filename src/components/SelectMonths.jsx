@@ -1,9 +1,9 @@
 import React from "react";
 import SelectInput from "./SelectInput";
 
-const SelectMonths = () => {
+const SelectMonths = ({ onChange, value }) => {
     return (
-        <SelectInput>
+        <SelectInput onChange={(e) => onChange(e.target.value)} value={value}>
             <option value="jan">Jan</option>
             <option value="feb">Feb</option>
             <option value="mar">Mar</option>

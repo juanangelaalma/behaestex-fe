@@ -7,6 +7,8 @@ import FormAction from "./components/FormAction";
 
 const Summary = () => {
     const [edit, setEdit] = useState(false);
+    const [summary, setSummary] = useState('')
+
     return (
         <SectionContainer>
             <SectionHeader
@@ -18,7 +20,7 @@ const Summary = () => {
             <SectionBody>
                 {edit ? (
                     <>
-                        <TextAreaInput placeholder="Insert text here" />
+                        <TextAreaInput placeholder="Insert text here" value={summary} onChange={(e) => setSummary(e.target.value)} />
                         <FormAction handleCancel={() => setEdit(false)} />
                     </>
                 ) : (

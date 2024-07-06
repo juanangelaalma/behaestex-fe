@@ -10,12 +10,14 @@ const generateYears = (startYear) => {
     return years;
 };
 
-const SelectYears = () => {
+const SelectYears = ({ onChange, value }) => {
     const years = generateYears(2001);
     return (
-        <SelectInput>
+        <SelectInput onChange={(e) => onChange(e.target.value)} value={value}>
             {years.map((year) => (
-                <option key={year} value={year}>{year}</option>
+                <option key={year} value={year}>
+                    {year}
+                </option>
             ))}
         </SelectInput>
     );
