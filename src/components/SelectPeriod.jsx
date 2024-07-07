@@ -2,7 +2,7 @@ import React from "react";
 import SelectMonths from "./SelectMonths";
 import SelectYears from "./SelectYears";
 
-const SelectPeriod = ({ label, period, handleChangePeriod }) => {
+const SelectPeriod = ({ label, period, handleChangePeriod, error }) => {
     const handleChangeMonth = (value) => {
         handleChangePeriod({
             ...period,
@@ -26,6 +26,7 @@ const SelectPeriod = ({ label, period, handleChangePeriod }) => {
                 <SelectMonths onChange={handleChangeMonth} value={period.month} />
                 <SelectYears onChange={handleChangeYear} value={period.year} />
             </div>
+            {error.length > 0 && <p className="text-sm text-red-500 text-semibold">{error[0]}</p> }
         </div>
     );
 };

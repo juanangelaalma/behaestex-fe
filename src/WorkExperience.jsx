@@ -6,32 +6,57 @@ import WorkItem from "./components/WorkItem";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
 import WorkExperienceForm from "./components/WorkExperienceForm";
 import getPeriod from "./utils/getPeriod";
+import axios from "axios";
+import { API_URL } from "./config/api";
 
-const WorkExperience = ({ workExperiences }) => {
+const WorkExperience = ({ workExperiences, getCv }) => {
     const [openForm, setOpenForm] = useState(false);
     const [selectedExperience, setSelectedExperience] = useState(null);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
-    const handleEdit = () => {
-        // set selected
+    const handleEdit = (id) => {
+        handleSelectExperience(id);
         setOpenForm(true);
-    };
-
-    const handleDelete = () => {
-        // set selected
-        setDeleteModalOpen(true);
     };
 
     const getPosition = (experience) => {
         return `${experience.title} at ${experience.company}`
     }
 
+    const handleSuccessAddExperience = () => {
+        setOpenForm(false)
+        getCv()
+    }
+
+    const handleDeleteExperience = async () => {
+        try {
+            await axios.delete(`${API_URL}/cv/work-experiences/${selectedExperience.id}`)
+            setDeleteModalOpen(false)
+            getCv()
+        } catch (error) {}
+    }
+
+    const handleSelectExperience = (id) => {
+        const experience = workExperiences.filter(work => work.id === id)
+        setSelectedExperience(experience[0])
+    }
+
+    const handleOpenDeleteModal = (id) => {
+        handleSelectExperience(id);
+        setDeleteModalOpen(true);
+    }
+
+    const handleCancelDelete = () => {
+        setSelectedExperience(null)
+        setDeleteModalOpen(false)
+    }
+
     return (
         <SectionContainer>
             <DeleteConfirmModal
                 isOpen={deleteModalOpen}
-                closeModal={() => setDeleteModalOpen(false)}
-                handleConfirm={handleDelete}
+                closeModal={handleCancelDelete}
+                handleConfirm={handleDeleteExperience}
             />
             <SectionHeader
                 onAction={openForm}
@@ -43,16 +68,21 @@ const WorkExperience = ({ workExperiences }) => {
                 {openForm ? (
                     <WorkExperienceForm
                         handleCancel={() => setOpenForm(false)}
+                        handleSuccessAddExperience={handleSuccessAddExperience}
+                        selectedExperience={selectedExperience}
                     />
                 ) : (
                     <>
                         {workExperiences.map((experience) => (
                             <WorkItem
+                                key={experience.id}
+                                id={experience.id}
+                                setSelectedExperience={setSelectedExperience}
                                 period={getPeriod(experience)}
                                 position={getPosition(experience)}
                                 description={experience.description}
                                 handleEdit={handleEdit}
-                                handleDelete={handleDelete}
+                                handleOpenDeleteModal={handleOpenDeleteModal}
                             />
                         ))}
                     </>

@@ -9,25 +9,25 @@ import { API_URL } from "./config/api";
 
 const Summary = ({ summary, getCv }) => {
     const [edit, setEdit] = useState(false);
-    const [content, setContent] = useState("")
+    const [content, setContent] = useState("");
 
     const handleUpdateSummary = async () => {
         try {
             const res = await axios.put(`${API_URL}/cv/summary`, {
-                summary: content
-            })
-            if(res.status === 200) {
-                setEdit(false)
-                getCv()
+                summary: content,
+            });
+            if (res.status === 200) {
+                setEdit(false);
+                getCv();
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-    }
+    };
 
     useEffect(() => {
-        setContent(summary)
-    }, [summary])
+        setContent(summary);
+    }, [summary]);
 
     return (
         <SectionContainer>
@@ -40,13 +40,18 @@ const Summary = ({ summary, getCv }) => {
             <SectionBody>
                 {edit ? (
                     <>
-                        <TextAreaInput placeholder="Insert text here" value={content} onChange={(e) => setContent(e.target.value)} />
-                        <FormAction handleCancel={() => setEdit(false)} handleSave={handleUpdateSummary} />
+                        <TextAreaInput
+                            placeholder="Insert text here"
+                            value={content}
+                            onChange={(e) => setContent(e.target.value)}
+                        />
+                        <FormAction
+                            handleCancel={() => setEdit(false)}
+                            handleSave={handleUpdateSummary}
+                        />
                     </>
                 ) : (
-                    <p>
-                        {summary}
-                    </p>
+                    <p>{summary}</p>
                 )}
             </SectionBody>
         </SectionContainer>

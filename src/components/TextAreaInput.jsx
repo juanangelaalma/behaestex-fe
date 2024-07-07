@@ -1,6 +1,6 @@
 import React from "react";
 
-const TextAreaInput = ({ placeholder, label, value, onChange }) => {
+const TextAreaInput = ({ placeholder, label, value, onChange, error }) => {
     return (
         <div className="w-full">
             <label className="ml-3 text-sm font-bold text-gray-500 tracking-wide">
@@ -13,6 +13,7 @@ const TextAreaInput = ({ placeholder, label, value, onChange }) => {
                 value={value}
                 onChange={onChange}
             />
+            {error.length > 0 && <p className="text-sm text-red-500 text-semibold">{error[0]}</p> }
         </div>
     );
 };

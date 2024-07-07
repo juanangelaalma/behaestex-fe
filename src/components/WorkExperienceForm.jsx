@@ -3,19 +3,92 @@ import FormInput from "./FormInput";
 import SelectPeriod from "./SelectPeriod";
 import TextAreaInput from "./TextAreaInput";
 import FormAction from "./FormAction";
+import axios from "axios";
+import { API_URL } from "../config/api";
+import extractPeriod from "../utils/extractPeriod";
 
-const WorkExperienceForm = ({ handleCancel }) => {
-    const [jobTitle, setJobTitle] = useState("");
-    const [company, setCompany] = useState("");
-    const [fromPeriod, setFromPeriod] = useState({
-        month: "",
-        year: "",
+const WorkExperienceForm = ({
+    handleCancel,
+    handleSuccessAddExperience,
+    selectedExperience,
+}) => {
+    const { month: fromMonth, year: fromYear } = selectedExperience?.from
+        ? extractPeriod(selectedExperience.from)
+        : "";
+    const { month: toMonth, year: toYear } = selectedExperience?.to
+        ? extractPeriod(selectedExperience.to)
+        : "";
+
+    const [title, setTitle] = useState(selectedExperience?.title);
+    const [company, setCompany] = useState(selectedExperience?.company);
+    const [from, setFrom] = useState({
+        month: fromMonth,
+        year: fromYear,
     });
-    const [toPeriod, setToPeriod] = useState({
-        month: "",
-        year: "",
+    const [to, setTo] = useState({
+        month: toMonth,
+        year: toYear,
     });
-    const [description, setDescription] = useState("");
+    const [description, setDescription] = useState(
+        selectedExperience?.description
+    );
+    const initialError = {
+        title: [],
+        company: [],
+        from: [],
+        to: [],
+        description: [],
+    };
+    const [errors, setErrors] = useState(initialError);
+
+    const handleCreateExperience = async () => {
+        try {
+            const res = await axios.post(`${API_URL}/cv/work-experiences`, {
+                title,
+                company,
+                from: `${from.month}-${from.year}`,
+                to: `${to.month}-${to.year}`,
+                description,
+            });
+            if (res.status === 201) {
+                handleSuccessAddExperience();
+            }
+        } catch (error) {
+            if (error.code === "ERR_BAD_REQUEST") {
+                setErrors({ ...errors, ...error.response.data.errors });
+            }
+        }
+    };
+
+    const handleUpdateExperience = async () => {
+        try {
+            const res = await axios.put(
+                `${API_URL}/cv/work-experiences/${selectedExperience.id}`,
+                {
+                    title,
+                    company,
+                    from: `${from.month}-${from.year}`,
+                    to: `${to.month}-${to.year}`,
+                    description,
+                }
+            );
+            if (res.status === 201) {
+                handleSuccessAddExperience();
+            }
+        } catch (error) {
+            if (error.code === "ERR_BAD_REQUEST") {
+                setErrors({ ...errors, ...error.response.data.errors });
+            }
+        }
+    };
+
+    const handleSave = async () => {
+        if(selectedExperience) {
+            await handleUpdateExperience()
+        } else {
+            await handleCreateExperience()
+        }
+    }
 
     return (
         <div className="w-full space-y-4">
@@ -26,8 +99,9 @@ const WorkExperienceForm = ({ handleCancel }) => {
                 placeholder="enter your job title"
                 label="Job Title"
                 autoFocus={true}
-                value={jobTitle}
-                onChange={(value) => setJobTitle(value)}
+                value={title}
+                onChange={(value) => setTitle(value)}
+                error={errors.title}
             />
             <FormInput
                 className="mt-4 w-full"
@@ -37,24 +111,31 @@ const WorkExperienceForm = ({ handleCancel }) => {
                 label="Company"
                 value={company}
                 onChange={(value) => setCompany(value)}
+                error={errors.company}
             />
             <SelectPeriod
-                period={fromPeriod}
-                handleChangePeriod={(value) => setFromPeriod(value)}
+                period={from}
+                handleChangePeriod={(value) => setFrom(value)}
                 label="From"
+                error={errors.from}
             />
             <SelectPeriod
-                period={toPeriod}
-                handleChangePeriod={(value) => setToPeriod(value)}
+                period={to}
+                handleChangePeriod={(value) => setTo(value)}
                 label="To"
+                error={errors.to}
             />
             <TextAreaInput
                 label="Accomplishments or descriptions (optional)"
                 placeholder="Insert text here"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
+                error={errors.description}
             />
-            <FormAction handleCancel={handleCancel} />
+            <FormAction
+                handleCancel={handleCancel}
+                handleSave={handleSave}
+            />
         </div>
     );
 };

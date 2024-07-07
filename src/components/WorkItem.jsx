@@ -3,11 +3,12 @@ import DestroyButton from "./DestroyButton";
 import EditButton from "./EditButton";
 
 const WorkItem = ({
+    id,
     period,
     position,
     description,
     handleEdit,
-    handleDelete,
+    handleOpenDeleteModal
 }) => {
     return (
         <div className="w-full flex flex-col space-y-2 lg:flex-row relative">
@@ -19,8 +20,8 @@ const WorkItem = ({
                 <p className="text-gray-500">{description}</p>
             </div>
             <div className="absolute top-0 right-0 space-x-1">
-                <DestroyButton onClick={handleDelete} />
-                <EditButton onClick={handleEdit} />
+                <DestroyButton onClick={() => handleOpenDeleteModal(id)} />
+                <EditButton onClick={() => handleEdit(id)} />
             </div>
         </div>
     );
