@@ -32,10 +32,12 @@ const App = () => {
     getCv()
   }, [])
 
+  console.log(cv)
+
   return (
     <div className='p-4 space-y-6'>
       <BasicInformation getCv={getCv} avatar={cv.avatar} name={cv.name} address={cv.address} email={cv.email} phone={cv.phone}  />
-      <Summary summary={cv.summary} />
+      <Summary getCv={getCv} summary={cv.summary} />
       <WorkExperience workExperiences={cv.work_experiences} />
       <Education educations={cv.educations} />
       <Skills skills={cv.skills} />
