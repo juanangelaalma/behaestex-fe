@@ -1,6 +1,7 @@
 import React from "react";
 import DestroyButton from "./DestroyButton";
 import EditButton from "./EditButton";
+import { usePreview } from "../contexts/PreviewContext";
 
 const WorkItem = ({
     id,
@@ -8,8 +9,10 @@ const WorkItem = ({
     position,
     description,
     handleEdit,
-    handleOpenDeleteModal
+    handleOpenDeleteModal,
 }) => {
+    const { isPreview } = usePreview();
+
     return (
         <div className="w-full flex flex-col space-y-2 lg:flex-row relative">
             <div className="text-gray-500 font-semibold lg:w-3/12 pt-2">
@@ -19,10 +22,12 @@ const WorkItem = ({
                 <h6 className="font-semibold">{position}</h6>
                 <p className="text-gray-500">{description}</p>
             </div>
-            <div className="absolute top-0 right-0 space-x-1">
-                <DestroyButton onClick={() => handleOpenDeleteModal(id)} />
-                <EditButton onClick={() => handleEdit(id)} />
-            </div>
+            {!isPreview && (
+                <div className="absolute top-0 right-0 space-x-1">
+                    <DestroyButton onClick={() => handleOpenDeleteModal(id)} />
+                    <EditButton onClick={() => handleEdit(id)} />
+                </div>
+            )}
         </div>
     );
 };
