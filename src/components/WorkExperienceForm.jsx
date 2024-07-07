@@ -9,7 +9,7 @@ import extractPeriod from "../utils/extractPeriod";
 
 const WorkExperienceForm = ({
     handleCancel,
-    handleSuccessAddExperience,
+    handleSuccessSaveExperience,
     selectedExperience,
 }) => {
     const { month: fromMonth, year: fromYear } = selectedExperience?.from
@@ -51,7 +51,7 @@ const WorkExperienceForm = ({
                 description,
             });
             if (res.status === 201) {
-                handleSuccessAddExperience();
+                handleSuccessSaveExperience();
             }
         } catch (error) {
             if (error.code === "ERR_BAD_REQUEST") {
@@ -73,7 +73,7 @@ const WorkExperienceForm = ({
                 }
             );
             if (res.status === 201) {
-                handleSuccessAddExperience();
+                handleSuccessSaveExperience();
             }
         } catch (error) {
             if (error.code === "ERR_BAD_REQUEST") {

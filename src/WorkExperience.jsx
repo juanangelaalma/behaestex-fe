@@ -23,8 +23,9 @@ const WorkExperience = ({ workExperiences, getCv }) => {
         return `${experience.title} at ${experience.company}`
     }
 
-    const handleSuccessAddExperience = () => {
+    const handleSuccessSaveExperience = () => {
         setOpenForm(false)
+        setSelectedExperience(null)
         getCv()
     }
 
@@ -51,6 +52,11 @@ const WorkExperience = ({ workExperiences, getCv }) => {
         setDeleteModalOpen(false)
     }
 
+    const handleCancelEdit = () => {
+        setSelectedExperience(null)
+        setOpenForm(false)
+    }
+
     return (
         <SectionContainer>
             <DeleteConfirmModal
@@ -67,8 +73,8 @@ const WorkExperience = ({ workExperiences, getCv }) => {
             <SectionBody className="space-y-6">
                 {openForm ? (
                     <WorkExperienceForm
-                        handleCancel={() => setOpenForm(false)}
-                        handleSuccessAddExperience={handleSuccessAddExperience}
+                        handleCancel={handleCancelEdit}
+                        handleSuccessSaveExperience={handleSuccessSaveExperience}
                         selectedExperience={selectedExperience}
                     />
                 ) : (

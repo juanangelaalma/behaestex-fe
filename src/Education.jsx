@@ -6,28 +6,54 @@ import DeleteConfirmModal from "./components/DeleteConfirmModal";
 import EducationItem from "./components/EducationItem";
 import EducationForm from "./components/EducationForm";
 import getPeriod from "./utils/getPeriod";
+import { API_URL } from "./config/api";
+import axios from "axios";
 
-const Education = ({ educations }) => {
+const Education = ({ educations, getCv }) => {
     const [openForm, setOpenForm] = useState(false);
     const [selectedEducation, setSelectedEducation] = useState(null);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
-    const handleEdit = () => {
-        // set selected
+    const handleEdit = (id) => {
+        handleSelectEducation(id)
         setOpenForm(true);
     };
 
-    const handleDelete = () => {
-        // set selected
+    const handleSelectEducation = (id) => {
+        const education = educations.filter((edu) => edu.id === id);
+        setSelectedEducation(education[0]);
+    };
+
+    const handleDeleteEducation = async () => {
+        try {
+            await axios.delete(`${API_URL}/cv/educations/${selectedEducation.id}`)
+            setDeleteModalOpen(false)
+            getCv()
+        } catch (error) {}
+    }
+
+    const handleOpenDeleteModal = (id) => {
+        handleSelectEducation(id);
         setDeleteModalOpen(true);
     };
+
+    const handleSuccessSaveEducation = () => {
+        setOpenForm(false);
+        setSelectedEducation(null)
+        getCv();
+    };
+
+    const handleCancelEdit = () => {
+        setSelectedEducation(null)
+        setOpenForm(false)
+    }
 
     return (
         <SectionContainer>
             <DeleteConfirmModal
                 isOpen={deleteModalOpen}
                 closeModal={() => setDeleteModalOpen(false)}
-                handleConfirm={handleDelete}
+                handleConfirm={handleDeleteEducation}
             />
             <SectionHeader
                 onAction={openForm}
@@ -37,13 +63,19 @@ const Education = ({ educations }) => {
             />
             <SectionBody className="space-y-6">
                 {openForm ? (
-                    <EducationForm handleCancel={() => setOpenForm(false)} />
+                    <EducationForm
+                        handleSuccessSaveEducation={handleSuccessSaveEducation}
+                        handleCancel={handleCancelEdit}
+                        selectedEducation={selectedEducation}
+                    />
                 ) : (
                     <>
                         {educations.map((education) => (
                             <EducationItem
+                                key={education.id}
+                                id={education.id}
                                 handleEdit={handleEdit}
-                                handleDelete={handleDelete}
+                                handleOpenDeleteModal={handleOpenDeleteModal}
                                 period={getPeriod(education)}
                                 schoolName={education.school}
                                 description={education.description}

@@ -1,8 +1,8 @@
 import React from 'react'
 import WorkItem from './WorkItem'
 
-const EducationItem = ({period, schoolName, description, handleEdit, handleDelete}) => {
-  return <WorkItem handleDelete={handleDelete} handleEdit={handleEdit} period={period} position={schoolName} description={description} />
+const EducationItem = ({id, period, schoolName, description, handleEdit, handleOpenDeleteModal}) => {
+  return <WorkItem id={id} handleOpenDeleteModal={handleOpenDeleteModal} handleEdit={handleEdit} period={period} position={schoolName} description={description} />
 }
 
 export default EducationItem

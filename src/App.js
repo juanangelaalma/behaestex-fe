@@ -37,8 +37,8 @@ const App = () => {
       <BasicInformation getCv={getCv} avatar={cv.avatar} name={cv.name} address={cv.address} email={cv.email} phone={cv.phone}  />
       <Summary getCv={getCv} summary={cv.summary} />
       <WorkExperience getCv={getCv} workExperiences={cv.work_experiences} />
-      <Education educations={cv.educations} />
-      <Skills skills={cv.skills} />
+      <Education getCv={getCv} educations={cv.educations} />
+      <Skills getCv={getCv} skills={cv.skills} />
     </div>
   )
 }
