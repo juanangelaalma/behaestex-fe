@@ -10,6 +10,9 @@ import { API_URL } from "./config/api";
 const Summary = ({ summary, getCv }) => {
     const [edit, setEdit] = useState(false);
     const [content, setContent] = useState("");
+    const [errors, setErrors] = useState({
+        summary: []
+    })
 
     const handleUpdateSummary = async () => {
         try {
@@ -44,6 +47,7 @@ const Summary = ({ summary, getCv }) => {
                             placeholder="Insert text here"
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
+                            error={errors.summary}
                         />
                         <FormAction
                             handleCancel={() => setEdit(false)}
