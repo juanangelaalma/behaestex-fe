@@ -7,6 +7,7 @@ const FormInput = ({
   autoFocus,
   value,
   onChange,
+  error
 }) => {
   return (
     <div className={`relative ${className}`}>
@@ -22,6 +23,7 @@ const FormInput = ({
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
+      {error.length > 0 && <p className="text-sm text-red-500 text-semibold">{error[0]}</p> }
     </div>
   );
 };

@@ -5,8 +5,9 @@ import SectionBody from "./components/SectionBody";
 import WorkItem from "./components/WorkItem";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
 import WorkExperienceForm from "./components/WorkExperienceForm";
+import getPeriod from "./utils/getPeriod";
 
-const WorkExperience = () => {
+const WorkExperience = ({ workExperiences }) => {
     const [openForm, setOpenForm] = useState(false);
     const [selectedExperience, setSelectedExperience] = useState(null);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -20,6 +21,10 @@ const WorkExperience = () => {
         // set selected
         setDeleteModalOpen(true);
     };
+
+    const getPosition = (experience) => {
+        return `${experience.title} at ${experience.company}`
+    }
 
     return (
         <SectionContainer>
@@ -41,13 +46,15 @@ const WorkExperience = () => {
                     />
                 ) : (
                     <>
-                        <WorkItem
-                            period="Aug 2023 - Dec 2023"
-                            position="Web Developer(Internship) at PT Vidio Dot Com"
-                            description="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laudantium repudiandae porro provident ea officiis incidunt delectus? Eos, quia nostrum magnam nulla suscipit reprehenderit commodi sed quidem hic aspernatur voluptatum quasi!"
-                            handleEdit={handleEdit}
-                            handleDelete={handleDelete}
-                        />
+                        {workExperiences.map((experience) => (
+                            <WorkItem
+                                period={getPeriod(experience)}
+                                position={getPosition(experience)}
+                                description={experience.description}
+                                handleEdit={handleEdit}
+                                handleDelete={handleDelete}
+                            />
+                        ))}
                     </>
                 )}
             </SectionBody>

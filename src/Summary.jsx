@@ -5,9 +5,9 @@ import SectionBody from "./components/SectionBody";
 import TextAreaInput from "./components/TextAreaInput";
 import FormAction from "./components/FormAction";
 
-const Summary = () => {
+const Summary = ({ summary }) => {
     const [edit, setEdit] = useState(false);
-    const [summary, setSummary] = useState('')
+    const [content, setContent] = useState(summary)
 
     return (
         <SectionContainer>
@@ -20,18 +20,12 @@ const Summary = () => {
             <SectionBody>
                 {edit ? (
                     <>
-                        <TextAreaInput placeholder="Insert text here" value={summary} onChange={(e) => setSummary(e.target.value)} />
+                        <TextAreaInput placeholder="Insert text here" value={summary} onChange={(e) => setContent(e.target.value)} />
                         <FormAction handleCancel={() => setEdit(false)} />
                     </>
                 ) : (
                     <p>
-                        I am a highly skilled web developer with over 2 years of
-                        coding experience. Renowned for my unwavering dedication
-                        and exceptional ability to meet tight deadlines, I
-                        consistently deliver outstanding results. I thrive in
-                        demanding environments and possess a track record of
-                        effective leadership and proficient project management
-                        skills.
+                        {summary}
                     </p>
                 )}
             </SectionBody>

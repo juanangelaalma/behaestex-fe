@@ -16,7 +16,7 @@ const WorkItem = ({
             </div>
             <div className="lg:w-9/12">
                 <h6 className="font-semibold">{position}</h6>
-                {description && <p className="text-gray-500">{description}</p>}
+                <p className="text-gray-500">{description}</p>
             </div>
             <div className="absolute top-0 right-0 space-x-1">
                 <DestroyButton onClick={handleDelete} />

@@ -6,7 +6,7 @@ import SkillItem from "./components/SkillItem";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
 import SkillForm from "./components/SkillForm";
 
-const Skills = () => {
+const Skills = ({ skills }) => {
     const [edit, setEdit] = useState(false);
     const [selectedSkill, setSelectedSkill] = useState(null);
 
@@ -32,13 +32,9 @@ const Skills = () => {
                     <SkillForm handleDelete={handleDelete} handleCancel={() => setEdit(false)} />
                 ) : (
                     <div className="grid grid-cols-1 lg:grid-cols-3 w-full gap-3 gap-y-4 py-4">
-                        <SkillItem level="Basic" name="MYSQL Database" />
-                        <SkillItem level="Basic" name="MYSQL Database" />
-                        <SkillItem level="Basic" name="MYSQL Database" />
-                        <SkillItem level="Basic" name="MYSQL Database" />
-                        <SkillItem level="Basic" name="MYSQL Database" />
-                        <SkillItem level="Basic" name="MYSQL Database" />
-                        <SkillItem level="Basic" name="MYSQL Database" />
+                        {skills.map(skill => (
+                            <SkillItem level={skill.level} name={skill.skill} />
+                        ))}
                     </div>
                 )}
             </SectionBody>

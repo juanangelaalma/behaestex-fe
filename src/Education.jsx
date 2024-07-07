@@ -5,8 +5,9 @@ import SectionBody from "./components/SectionBody";
 import DeleteConfirmModal from "./components/DeleteConfirmModal";
 import EducationItem from "./components/EducationItem";
 import EducationForm from "./components/EducationForm";
+import getPeriod from "./utils/getPeriod";
 
-const Education = () => {
+const Education = ({ educations }) => {
     const [openForm, setOpenForm] = useState(false);
     const [selectedEducation, setSelectedEducation] = useState(null);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -39,12 +40,15 @@ const Education = () => {
                     <EducationForm handleCancel={() => setOpenForm(false)} />
                 ) : (
                     <>
-                        <EducationItem
-                            handleEdit={handleEdit}
-                            handleDelete={handleDelete}
-                            period="Jun 2020 - Jun 2024"
-                            schoolName="Universitas Negeri Surabaya"
-                        />
+                        {educations.map((education) => (
+                            <EducationItem
+                                handleEdit={handleEdit}
+                                handleDelete={handleDelete}
+                                period={getPeriod(education)}
+                                schoolName={education.school}
+                                description={education.description}
+                            />
+                        ))}
                     </>
                 )}
             </SectionBody>
