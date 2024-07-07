@@ -2,23 +2,29 @@ import React, { useEffect, useState } from "react";
 import FormInput from "./FormInput";
 import SelectInput from "./SelectInput";
 import DestroyButton from "./DestroyButton";
-import FormAction from "./FormAction";
 
-const SkillForm = ({ handleDelete, currentSkill, onSkillChange, onLevelChange }) => {
+const SkillForm = ({
+    handleDelete,
+    currentSkill,
+    onSkillChange,
+    onLevelChange,
+}) => {
     const [skill, setSkill] = useState(currentSkill.skill);
     const [level, setLevel] = useState(currentSkill.level);
-    const [errors, setErrors] = useState({
+    const [errors] = useState({
         skill: [],
         level: [],
     });
 
     useEffect(() => {
-        onSkillChange(currentSkill.id, skill)
-    }, [skill])
+        onSkillChange(currentSkill.id, skill);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [skill]);
 
     useEffect(() => {
-        onLevelChange(currentSkill.id, level)
-    }, [level])
+        onLevelChange(currentSkill.id, level);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [level]);
 
     return (
         <>

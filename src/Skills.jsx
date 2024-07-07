@@ -44,6 +44,7 @@ const Skills = ({ skills, getCv }) => {
     const handleCancelEdit = () => {
         setEdit(false);
         setSelectedSkill(null);
+        setCurrentSkills(skills)
     };
 
     const handleCancelDestroy = () => {

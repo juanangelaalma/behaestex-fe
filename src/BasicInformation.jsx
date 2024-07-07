@@ -3,8 +3,6 @@ import SectionHeader from "./components/SectionHeader";
 import SectionContainer from "./components/SectionContainer";
 import BasicInformationDetails from "./components/BasicInformationDetails";
 import BasicInformationForm from "./components/BasicInformationForm";
-import axios from "axios";
-import { API_URL } from "./config/api";
 
 const BasicInformation = ({ avatar, name, address, email, phone, getCv }) => {
     const [editBasicInformation, setEditBasicInformation] = useState(false);

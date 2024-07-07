@@ -10,6 +10,7 @@ import { API_URL } from "./config/api";
 const Summary = ({ summary, getCv }) => {
     const [edit, setEdit] = useState(false);
     const [content, setContent] = useState("");
+    // eslint-disable-next-line no-unused-vars
     const [errors, setErrors] = useState({
         summary: []
     })
