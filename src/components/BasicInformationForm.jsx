@@ -5,6 +5,7 @@ import AvatarInput from "./AvatarInput";
 import FormAction from "./FormAction";
 import axios from "axios";
 import { API_URL } from "../config/api";
+import { toast } from "react-toastify";
 
 const BasicInformationForm = ({
     avatar,
@@ -52,6 +53,7 @@ const BasicInformationForm = ({
             });
             if (res.status === 200) {
                 handleSuccessUpdateBasicInformation();
+                toast(res.data.message)
             }
         } catch (error) {
             if (error.code === "ERR_BAD_REQUEST") {

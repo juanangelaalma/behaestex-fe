@@ -8,6 +8,7 @@ import WorkExperienceForm from "./components/WorkExperienceForm";
 import getPeriod from "./utils/getPeriod";
 import axios from "axios";
 import { API_URL } from "./config/api";
+import { toast } from "react-toastify";
 
 const WorkExperience = ({ workExperiences, getCv }) => {
     const [openForm, setOpenForm] = useState(false);
@@ -31,9 +32,10 @@ const WorkExperience = ({ workExperiences, getCv }) => {
 
     const handleDeleteExperience = async () => {
         try {
-            await axios.delete(`${API_URL}/cv/work-experiences/${selectedExperience.id}`)
+            const res = await axios.delete(`${API_URL}/cv/work-experiences/${selectedExperience.id}`)
             setDeleteModalOpen(false)
             getCv()
+            toast(res.data.message)
         } catch (error) {}
     }
 

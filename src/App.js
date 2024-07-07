@@ -8,6 +8,8 @@ import axios from 'axios'
 import { API_URL } from './config/api'
 import CopyPreviewButton from './components/CopyPreviewButton'
 import { usePreview } from './contexts/PreviewContext'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
   const { isPreview } = usePreview()
@@ -43,6 +45,7 @@ const App = () => {
       <WorkExperience getCv={getCv} workExperiences={cv.work_experiences} />
       <Education getCv={getCv} educations={cv.educations} />
       <Skills getCv={getCv} skills={cv.skills} />
+      <ToastContainer />
     </div>
   )
 }

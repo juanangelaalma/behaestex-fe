@@ -8,6 +8,7 @@ import EducationForm from "./components/EducationForm";
 import getPeriod from "./utils/getPeriod";
 import { API_URL } from "./config/api";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Education = ({ educations, getCv }) => {
     const [openForm, setOpenForm] = useState(false);
@@ -26,9 +27,10 @@ const Education = ({ educations, getCv }) => {
 
     const handleDeleteEducation = async () => {
         try {
-            await axios.delete(`${API_URL}/cv/educations/${selectedEducation.id}`)
+            const res = await axios.delete(`${API_URL}/cv/educations/${selectedEducation.id}`)
             setDeleteModalOpen(false)
             getCv()
+            toast(res.data.message)
         } catch (error) {}
     }
 

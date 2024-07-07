@@ -7,6 +7,7 @@ import FormAction from "./FormAction";
 import axios from "axios";
 import { API_URL } from "../config/api";
 import extractPeriod from "../utils/extractPeriod";
+import { toast } from "react-toastify";
 
 const EducationForm = ({
     handleCancel,
@@ -53,6 +54,7 @@ const EducationForm = ({
             });
             if (res.status === 201) {
                 handleSuccessSaveEducation();
+                toast(res.data.message)
             }
         } catch (error) {
             if (error.code === "ERR_BAD_REQUEST") {
@@ -75,6 +77,7 @@ const EducationForm = ({
             );
             if (res.status === 201) {
                 handleSuccessSaveEducation();
+                toast(res.data.message)
             }
         } catch (error) {
             if (error.code === "ERR_BAD_REQUEST") {

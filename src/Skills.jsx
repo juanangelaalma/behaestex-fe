@@ -8,6 +8,7 @@ import SkillForm from "./components/SkillForm";
 import FormAction from "./components/FormAction";
 import axios from "axios";
 import { API_URL } from "./config/api";
+import { toast } from "react-toastify";
 
 const Skills = ({ skills, getCv }) => {
     const [edit, setEdit] = useState(false);
@@ -60,6 +61,7 @@ const Skills = ({ skills, getCv }) => {
             if (res.status === 201) {
                 setEdit(false)
                 getCv();
+                toast(res.data.message)
             }
         } catch (error) {
             console.log(error);

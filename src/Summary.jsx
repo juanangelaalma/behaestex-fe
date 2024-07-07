@@ -6,6 +6,7 @@ import TextAreaInput from "./components/TextAreaInput";
 import FormAction from "./components/FormAction";
 import axios from "axios";
 import { API_URL } from "./config/api";
+import { toast } from "react-toastify";
 
 const Summary = ({ summary, getCv }) => {
     const [edit, setEdit] = useState(false);
@@ -23,6 +24,7 @@ const Summary = ({ summary, getCv }) => {
             if (res.status === 200) {
                 setEdit(false);
                 getCv();
+                toast(res.data.message)
             }
         } catch (error) {
             console.log(error);

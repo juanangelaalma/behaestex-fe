@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FormInput from "./FormInput";
 import SelectPeriod from "./SelectPeriod";
 import TextAreaInput from "./TextAreaInput";
@@ -6,6 +6,7 @@ import FormAction from "./FormAction";
 import axios from "axios";
 import { API_URL } from "../config/api";
 import extractPeriod from "../utils/extractPeriod";
+import { toast } from "react-toastify";
 
 const WorkExperienceForm = ({
     handleCancel,
@@ -52,6 +53,7 @@ const WorkExperienceForm = ({
             });
             if (res.status === 201) {
                 handleSuccessSaveExperience();
+                toast(res.data.message)
             }
         } catch (error) {
             if (error.code === "ERR_BAD_REQUEST") {
@@ -74,6 +76,7 @@ const WorkExperienceForm = ({
             );
             if (res.status === 201) {
                 handleSuccessSaveExperience();
+                toast(res.data.message)
             }
         } catch (error) {
             if (error.code === "ERR_BAD_REQUEST") {
